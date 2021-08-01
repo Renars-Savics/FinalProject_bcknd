@@ -19,7 +19,8 @@ public class Card {
     @Column(name = "exp_date")
     private Date expirationDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+
     private Account account;
 
     @Column(name = "status")

@@ -25,4 +25,10 @@ public class AccountService {
     public Account getAccountById(long id){
         return accountRepository.getById(id);
     }
+    public Account saveAccount(Account account){
+        return accountRepository.save(account);
+    }
+    public List<Account> getAccountByNumberLike(String accountNumber){
+        return accountRepository.findAccountByAccountNumberContains(accountNumber);
+    }
 }
