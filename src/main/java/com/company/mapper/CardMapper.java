@@ -1,22 +1,15 @@
 package com.company.mapper;
 
-import com.company.dto.AccountDTO;
 import com.company.dto.CardDTO;
-import com.company.model.Account;
 import com.company.model.Card;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class CardMapper {
 
-    private MapperMediator mapperMediator;
-
-    @Autowired
-    public CardMapper(MapperMediator mapperMediator) {
-        this.mapperMediator = mapperMediator;
-    }
 
     public CardDTO toDTO(Card card){
         CardDTO cardDTO = new CardDTO();
@@ -25,9 +18,6 @@ public class CardMapper {
         cardDTO.setExpirationDate(card.getExpirationDate());
         cardDTO.setId(card.getId());
         cardDTO.setStatus(card.getStatus());
-
-        AccountDTO accountDTO = mapperMediator.getAccountMapper().toDTO(card.getAccount());
-        cardDTO.setAccountDTO(accountDTO);
         return cardDTO;
     }
 
@@ -38,9 +28,12 @@ public class CardMapper {
         card.setExpirationDate(cardDTO.getExpirationDate());
         card.setId(cardDTO.getId());
         card.setStatus(cardDTO.getStatus());
-
-        Account account = mapperMediator.getAccountMapper().fromDTO(cardDTO.getAccountDTO());
-        card.setAccount(account);
         return card;
+    }
+    public List<CardDTO> toDTOS(List<Card> cards){
+        return cards.stream().map(this::toDTO).collect(Collectors.toList());
+    }
+    public List<Card> fromDTOS(List<CardDTO> cards){
+        return cards.stream().map(this::fromDTO).collect(Collectors.toList());
     }
 }
