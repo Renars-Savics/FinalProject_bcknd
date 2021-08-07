@@ -3,26 +3,28 @@ package com.company.controller;
 import com.company.dto.AccountDTO;
 
 import com.company.dto.CardDTO;
-import com.company.mapper.AccountMapper;
-import com.company.mapper.CardMapper;
 import com.company.mapper.MapperMediator;
 import com.company.model.Account;
 import com.company.model.Card;
 import com.company.service.AccountService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @RestController
 @RequestMapping(value = "/api/rest/Account.svc")
-
 public class AccountController {
 
-    private AccountService accountService;
+    private Logger logger = LoggerFactory.getLogger(AccountController.class);   //Factory method for get logger
 
+    private AccountService accountService;
 
     private MapperMediator mapperMediator;
 
@@ -57,7 +59,10 @@ public class AccountController {
     }
 
     @PostMapping("/account")
-    public AccountDTO addAccount(@RequestBody AccountDTO accountDTO) {
+    public AccountDTO addAccount(@Valid @RequestBody AccountDTO accountDTO) {
+//        if(accountDTO.getAccountNumber().length() != 21){
+//            throw new RuntimeException ("Account number has to be 21 characters long!");
+//        }
         Account account = mapperMediator.getAccountMapper().fromDTO(accountDTO);
         Account savedAccount = accountService.saveAccount(account);
         AccountDTO savedAccountDTO = mapperMediator.getAccountMapper().toDTO(savedAccount);
@@ -76,6 +81,21 @@ public class AccountController {
             accountDTOList.add(tmp);
         }
         return accountDTOList;
+    }
+
+    @PutMapping("/account/{accountId}/card/{cardId}/add")
+    public void addCardToAccount(@PathVariable long accountId, @PathVariable long cardId) {
+        logger.trace("A TRACE Message");
+        logger.debug("A DEBUG Message");
+        logger.info("An INFO Message");
+        logger.warn("A WARN Message");
+        logger.error("An ERROR Message");
+        accountService.addCardToAccount(accountId, cardId);
+    }
+
+    @PutMapping("account/remove/{cardId}")
+    public void removeCardFromAccount(@PathVariable long cardId) {
+        accountService.removeCardFromAccount(cardId);
     }
 
 }

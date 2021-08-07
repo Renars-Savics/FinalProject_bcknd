@@ -1,7 +1,9 @@
 package com.company.dto;
 
-import com.company.model.Account;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Date;
 
@@ -9,10 +11,14 @@ public class CardDTO {
 
     private long id;
 
+    @JsonProperty("card_holder")
     private String cardHolder;
 
+    @JsonProperty("card_number")
     private String cardNumber;
 
+    @JsonProperty("expiration_date")
+    @JsonFormat(pattern="dd.MM.yyyy")
     private Date expirationDate;
 
     @JsonBackReference //Lai nebūtu circular refference
