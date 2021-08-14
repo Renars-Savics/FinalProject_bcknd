@@ -9,7 +9,7 @@ public class CardValidator {
 
     public void checkMaxCardAmount (Account account){
         if(account.getCards().size() >= 3){
-            throw new TooManyCardsException("Maximum allowed cards can only be 3");
+            throw new TooManyCardsException("Maximum allowed cards: 3");
         }
     }
 }
