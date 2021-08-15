@@ -72,5 +72,17 @@ public class AccountDTO {
     public void setCardDTO(List<CardDTO> cardDTO) {
         this.cardDTO = cardDTO;
     }
+
+    @Override
+    public String toString() {
+        return "AccountDTO{" +
+                "id=" + id +
+                ", accountNumber='" + accountNumber + '\'' +
+                ", currency='" + currency + '\'' +
+                ", ballance=" + ballance +
+                ", status=" + status +
+                ", cardDTO=" + cardDTO +
+                '}';
+    }
 }
 

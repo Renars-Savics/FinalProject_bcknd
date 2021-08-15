@@ -73,6 +73,18 @@ public class Card {
     public void setAccount(Account account) {
         this.account = account;
     }
+
+    @Override
+    public String toString() {
+        return "Card{" +
+                "id=" + id +
+                ", cardHolder='" + cardHolder + '\'' +
+                ", cardNumber='" + cardNumber + '\'' +
+                ", expirationDate=" + expirationDate +
+                ", account=" + account +
+                ", status=" + status +
+                '}';
+    }
 }
 
 
