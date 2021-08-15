@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @RestController
+@CrossOrigin(maxAge = 3600)
 @RequestMapping(value = "/api/rest/Card.svc")
 public class CardController {
 

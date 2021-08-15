@@ -10,7 +10,6 @@ import com.company.service.AccountService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -19,6 +18,7 @@ import java.util.List;
 
 
 @RestController
+@CrossOrigin(maxAge = 3600)
 @RequestMapping(value = "/api/rest/Account.svc")
 public class AccountController {
 
@@ -33,7 +33,7 @@ public class AccountController {
         this.accountService = accountService;
         this.mapperMediator = mapperMediator;
     }
-
+    @CrossOrigin(origins = "http://localhost:8000")
     @GetMapping("/accounts")
     public List<AccountDTO> showAll() {
         List<Account> accountList = accountService.getAllAccounts();
