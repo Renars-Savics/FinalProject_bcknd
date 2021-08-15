@@ -121,14 +121,14 @@ public class AccountControllerIntegrationTest {
         Account account = accountRepository.getById(1L);
         List<Card> cards = account.getCards();
         for(Card c : cards ){
-            assertNotEquals(2, c.getId());
+            assertNotEquals(6, c.getId());
         }
-        mvc.perform(put("/api/rest/Account.svc/account/1/card/2/add"))
+        mvc.perform(put("/api/rest/Account.svc/account/1/card/6/add"))
                 .andExpect(status().isOk());
 
-        Card card = cardRepository.getById(2L);
-        System.out.println(card);
-        assertEquals(1, card.getAccount().getId());
+        Account account1 = accountRepository.getById(1L);
+        assertTrue(account1.getCards().stream().anyMatch(t -> t.getId() == 6));
+
 
     }
 }
